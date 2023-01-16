@@ -1,0 +1,79 @@
+﻿@page "{id:int?}"
+@model InchirieriEchipamenteAlpine.Pages.Producatori.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Producatori</h1>
+
+<p>
+    <a asp-page="Create">Creeaza Nou</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Producator[0].NumeProducator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producator[0].TaraOrigine)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ProducatorData.Producatori)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.ProducatorID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeProducator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaraOrigine)
+            </td>
+            <td>
+                <a asp-page="./Index" asp-route-id="@item.ID">Selecteaza</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Editeaza</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Detalii</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Sterge</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table
+
+@if (Model.ProducatorData.EchipamenteAlpine != null)
+{
+    <h3>Echipamente ale producatorului selectat</h3>
+    <table class="table">
+
+        @foreach (var item in Model.ProducatorData.Producatori)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.ProducatorID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+
+                <td>
+                    @{
+                        foreach (var b in item.EchipamenteAlpine)
+                        {
+
+                            @b.Denumire @: @b.Producator.NumeProducator
+
+                            <br />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}

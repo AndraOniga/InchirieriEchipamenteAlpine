@@ -1,0 +1,87 @@
+﻿@page
+@model InchirieriEchipamenteAlpine.Pages.EchipamenteAlpine.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>EchipamentAlpin</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EchipamentAlpin.ID" />
+            <div class="form-group">
+                <label asp-for="EchipamentAlpin.Denumire" class="control-label"></label>
+                <input asp-for="EchipamentAlpin.Denumire" class="form-control" />
+                <span asp-validation-for="EchipamentAlpin.Denumire" class="text-danger"></span>
+            </div>
+        
+            <div class="form-group">
+                <label asp-for="EchipamentAlpin.Pret" class="control-label"></label>
+                <input asp-for="EchipamentAlpin.Pret" class="form-control" />
+                <span asp-validation-for="EchipamentAlpin.Pret" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EchipamentAlpin.DataIntrareStoc" class="control-label"></label>
+                <input asp-for="EchipamentAlpin.DataIntrareStoc" class="form-control" />
+                <span asp-validation-for="EchipamentAlpin.DataIntrareStoc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EchipamentAlpin.Stare" class="control-label"></label>
+                <input asp-for="EchipamentAlpin.Stare" class="form-control" />
+                <span asp-validation-for="EchipamentAlpin.Stare" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EchipamentAlpin.DistribuitorID" class="control-label">Nume Distribuitor</label>
+                <select asp-for="EchipamentAlpin.DistribuitorID" class="form-control" asp-items="ViewBag.DistribuitorID"></select>
+                <span asp-validation-for="EchipamentAlpin.DistribuitorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EchipamentAlpin.ProducatorID" class="control-label">Nume Producator</label>
+                <select asp-for="EchipamentAlpin.ProducatorID" class="form-control" asp-items="ViewBag.ProducatorID"></select>
+                <span asp-validation-for="EchipamentAlpin.ProducatorID" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+             <div class="table">
+             <table>
+             <tr>
+             @{
+             int cnt = 0;
+             foreach (var cat in Model.CategoriePeEchipamentDataList)
+            {
+             if (cnt++ % 3 == 0)
+            {
+            @:</tr><tr>
+            }
+            @:<td>
+             <input type="checkbox"
+             name="selectedCategories"
+             value="@cat.CategorieID"
+             @(Html.Raw(cat.Selectat ?
+            "checked=\"checked\"" : "")) />
+             @cat.CategorieID @: @cat.Nume
+             @:</td>
+             }
+             @:</tr>
+            }
+             </table>
+             </div>
+             </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

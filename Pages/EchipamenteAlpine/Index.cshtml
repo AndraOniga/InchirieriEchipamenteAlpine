@@ -1,0 +1,82 @@
+﻿@page "/"
+@model InchirieriEchipamenteAlpine.Pages.EchipamenteAlpine.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Inchiriere echipament alpin</h1>
+
+<p>
+    <a asp-page="Create">Creaza Nou</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EchipamentAlpin[0].Denumire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EchipamentAlpin[0].Producator.NumeProducator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EchipamentAlpin[0].Pret)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EchipamentAlpin[0].DataIntrareStoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EchipamentAlpin[0].Stare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EchipamentAlpin[0].Distribuitor.NumeDistribuitor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EchipamentAlpin[0].CategoriiEchipamente)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.EchipamentAlpinD.EchipamenteAlpine)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.EchipamentAlpinID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Denumire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producator.NumeProducator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pret)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataIntrareStoc)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stare)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distribuitor.NumeDistribuitor)
+                </td>
+                <td>
+                    @{
+                        foreach (var categorie in item.CategoriiEchipamente)
+                        {
+                            @categorie.Categorie.ID @: @categorie.Categorie.NumeCategorie <br />
+                        }
+                    }
+                </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Editeaza</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Detalii</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Stergere</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

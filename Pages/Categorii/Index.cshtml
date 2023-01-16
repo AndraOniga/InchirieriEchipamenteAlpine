@@ -1,0 +1,71 @@
+﻿@page
+@model InchirieriEchipamenteAlpine.Pages.Categorii.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Categorii</h1>
+
+<p>
+    <a asp-page="Create">Creeaza Nou</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Categorie[0].NumeCategorie)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CategorieData.Categorii)
+ {
+ string selectedRow = "";
+ if (item.ID == Model.CategorieID)
+ {
+ selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeCategorie)
+            </td>
+            <td>
+                    <a asp-page="./Index" asp-route-id="@item.ID">Selecteaza</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Editeaza</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Detalii</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Sterge</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@if (Model.CategorieData.CategoriiEchipamente != null)
+{
+    <h3>Echipamente Alpine din categoria selectata</h3>
+    <table class="table">
+        @foreach (var item in Model.CategorieData.Categorii)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.CategorieID)
+            {
+
+                selectedRow = "table-success";
+
+            }
+
+            <tr class="@selectedRow">
+                <td>
+                    @{
+                        foreach (var b in item.CategoriiEchipamente)
+                        {
+                            //@b.Category.CategoryName
+                            @b.EchipamentAlpin.Denumire @: @b.EchipamentAlpin.Producator.NumeProducator
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
